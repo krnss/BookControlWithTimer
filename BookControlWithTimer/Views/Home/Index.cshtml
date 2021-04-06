@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using BookControlWithTimer.Models;
+@model IEnumerable<Book>
+
+
+<table class="table" id="MyTable">
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.Name)</th>
+        <th> @Html.DisplayNameFor(model => model.Autor)</th>
+        <th> @Html.DisplayNameFor(model => model.Description)</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td><input type="text" name="name" value="" /></td>
+        <td><input type="text" name="name" value="" /></td>
+        <td><input type="text" name="name" value="" /></td>
+        <td><input type="button" name="name" value="Add" onclick="addBook()" /></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Autor</td>
+            <td>@item.Description</td>
+            <td><input type="button" name="name" value="Delete" onclick="deleteBook('@item.Name')" /></td>
+        </tr>
+    }
+</table>
+
+
+<script src="~/Scripts/WorkWithBook.js"></script>

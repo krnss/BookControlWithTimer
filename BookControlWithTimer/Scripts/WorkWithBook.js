@@ -38,10 +38,40 @@ function deleteBook (name) {
     }
 }
 
-function startTimer() {
-    setInterval(alertFunc, 3000);
-}
 
+window.onload = function () {
+    setInterval(saveChange, 20*1000);
+}
 function saveChange() {
     alert("Hello!");
+    let rows = document.getElementById("MyTable").getElementsByTagName("TR");
+
+    for (let i = 1; i < rows.length; i++) {
+        
+        if (rows[i].classList.contains("added")) {
+            let td = rows[i].getElementsByTagName("TD");
+
+            rows[i].classList.remove("added");
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/Add",
+                data: {
+                    'name': td[0].innerHTML,
+                    'autor': td[1].innerHTML,
+                    'description': td[2].innerHTML,
+                }
+            });
+        }
+        else if (rows[i].classList.contains("deleted")) {
+            let td = rows[i].getElementsByTagName("TD");            
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/Delete",
+                data: { 'name': td[0].innerHTML }
+            });
+            rows[i].remove();
+        }        
+    }
 }
